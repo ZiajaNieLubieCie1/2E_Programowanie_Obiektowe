@@ -1,138 +1,95 @@
-﻿#include <iostream>
+#include <iostream>
+#include <string>
 #include <cstdlib>
 
 using namespace std;
 
-char board[3][3] = { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
-int winsPlayer1 = 0;
-int winsPlayer2 = 0;
-int draws = 0;
+int draw = 0;
+int winuserX = 0;
+int winuserO = 0;
 
-void drawBoard() {
-     cout << "-------------" <<  endl;
-    for (int i = 0; i < 3; ++i) {
-         cout << "| ";
-        for (int j = 0; j < 3; ++j) {
-             cout << board[i][j] << " | ";
-        }
-         cout <<  endl;
-         cout << "-------------" <<  endl;
-    }
+void plansza(char t[])
+{
+	for (int i = 1; i <= 9; i++)
+	{
+		cout << " " << t[i] << " ";
+		if (i % 3) {
+			cout << "|";
+		}
+		else if (i != 9)
+			cout << "\n---+---+---\n";
+		else cout << endl;
+	}
 }
 
-bool isMoveValid(int move) {
-    if (move < 1 || move > 9) {
-        return false;
-    }
 
-    int row = (move - 1) / 3;
-    int col = (move - 1) % 3;
+bool wygrana(char t[], char g)
+{
+	bool test;
+	int i;
 
-    return board[row][col] == 'X' || board[row][col] == 'O';
+	test = false;
+	for (i = 1; i <= 7; i += 3)
+		test |= ((t[i] == g) && (t[i + 1] == g) && (t[i + 2] == g));
+	for (i = 1; i <= 3; i++)
+		test |= ((t[i] == g) && (t[i + 3] == g) && (t[i + 6] == g));
+	test |= ((t[1] == g) && (t[5] == g) && (t[9] == g));
+	test |= ((t[3] == g) && (t[5] == g) && (t[7] == g));
+	if (test)
+	{
+		plansza(t);
+		cout << "\nGRACZ " << g << " WYGRYWA!!!\n\n";
+		if (g == 'X')
+			winuserX++;
+		else
+			winuserO++;
+		return true;
+	}
+	return false;
 }
 
-bool checkWin() {
-    for (int i = 0; i < 3; ++i) {
-        if ((board[i][0] == board[i][1] && board[i][1] == board[i][2]) ||
-            (board[0][i] == board[1][i] && board[1][i] == board[2][i])) {
-            return true;
-        }
-    }
 
-    if ((board[0][0] == board[1][1] && board[1][1] == board[2][2]) ||
-        (board[0][2] == board[1][1] && board[1][1] == board[2][0])) {
-        return true;
-    }
-
-    return false;
+bool remis(char t[])
+{
+	int draw = 0;
+	for (int i = 1; i <= 9; i++)
+		if (t[i] == ' ') return false;
+	plansza(t);
+	cout << "\nREMIS !!!\n\n";
+	draw++;
+	return true;
 }
 
-bool isBoardFull() {
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            if (board[i][j] != 'X' && board[i][j] != 'O') {
-                return false;
-            }
-        }
-    }
-    return true;
-}
 
-void makeMove(int move, int currentPlayer) {
-    int row = (move - 1) / 3;
-    int col = (move - 1) % 3;
+void ruch(char t[], char& gracz)
+{
+	int r;
 
-    if (currentPlayer == 1) {
-        board[row][col] = 'X';
-    }
-    else {
-        board[row][col] = 'O';
-    }
+	plansza(t);
+	cout << "\nGRACZ " << gracz << " : Twoj ruch : ";
+	cin >> r;
+	cout << "-----------------------\n\n";
+	if ((r >= 1) && (r <= 9) && (t[r] == ' ')) t[r] = gracz;
+	gracz = (gracz == 'O') ? 'X' : 'O';
+
 }
 
 int main() {
-    int currentPlayer = 1;
-    int move;
-    bool gameContinues = true;
+	char p[10], g, w;;
+	do
+	{
+		cout << "Gra w Kolko i Krzyzyk dla dwoch graczy\n"
+			"======================================\n\n";
+		for (int i = 1; i <= 9; i++) p[i] = ' ';
+		g = 'O';
+		while (!wygrana(p, 'X') && !wygrana(p, 'O') && !remis(p)) ruch(p, g);
+		cout << "Jeszcze raz ? (T = TAK) : ";
+		cin >> w;
+		cout << "\n\n\n";
+	} while ((w == 'T') || (w == 't'));
 
-    do {
-        drawBoard();
-         cout << "Gracz " << currentPlayer << ", podaj numer pola: ";
-         cin >> move;
-
-        if (!isMoveValid(move)) {
-            makeMove(move, currentPlayer);
-
-            if (checkWin()) {
-                drawBoard();
-                 cout << "Gracz " << currentPlayer << " wygrywa!" <<  endl;
-                if (currentPlayer == 1) {
-                    ++winsPlayer1;
-                }
-                else {
-                    ++winsPlayer2;
-                }
-                gameContinues = false;  // Zakończ grę po wygranej
-            }
-            else if (isBoardFull()) {
-                drawBoard();
-                 cout << "Remis!" <<  endl;
-                ++draws;
-                gameContinues = false;  // Zakończ grę po remisie
-            }
-            else {
-                currentPlayer = (currentPlayer == 1) ? 2 : 1;
-            }
-        }
-        else {
-             cout << "Błędny ruch. Wybierz jeszcze raz." <<  endl;
-        }
-
-        if (!gameContinues) {
-             cout << "Czy chcesz grać dalej? (Tak/Nie): ";
-             string playAgain;
-             cin >> playAgain;
-
-            if (playAgain != "Tak" && playAgain != "tak") {
-                gameContinues = false;
-                 cout << "Wyniki: Gracz 1 - Wygrane: " << winsPlayer1 << ", Przegrane: " << winsPlayer2
-                    << ", Remisy: " << draws <<  endl;
-                 cout << "Wyniki: Gracz 2 - Wygrane: " << winsPlayer2 << ", Przegrane: " << winsPlayer1
-                    << ", Remisy: " << draws <<  endl;
-            }
-            else {
-                // Czyszczenie tabeli
-                for (int i = 0; i < 3; ++i) {
-                    for (int j = 0; j < 3; ++j) {
-                        board[i][j] = '1' + i * 3 + j;
-                    }
-                }
-                currentPlayer = 1;  // Zresetuj gracza po rozpoczęciu nowej gry
-                gameContinues = true;  // Nowa gra
-            }
-        }
-
-    } while (gameContinues);
-
-    return 0;
+	cout << "Liczba zagranych gier: " << winuserX + winuserO + draw << endl;
+	cout << "Wygrane gracza X: " << winuserX << endl;
+	cout << "Wygrane gracza O: " << winuserO << endl;
+	cout << "Liczba remisow: " << draw << endl;
 }
