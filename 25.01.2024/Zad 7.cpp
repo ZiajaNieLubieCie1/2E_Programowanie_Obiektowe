@@ -22,10 +22,10 @@ int main()
 }
 
 void obwodOk(double promien, double &obwod){
-    2 * 3.14 * promien;
+   obwod = 2 * 3.14 * promien;
 }
 void poleOk(double promien, double& pole){
-    3.14 * promien * promien;
+   pole = 3.14 * promien * promien;
 }
 
 
