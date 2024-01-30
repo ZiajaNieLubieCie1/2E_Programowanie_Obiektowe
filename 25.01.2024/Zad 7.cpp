@@ -2,14 +2,15 @@
 
 using namespace std;
 
-double obwodOk(double, double&);
-double poleOk(double, double&);
+void obwodOk(double, double&);
+void poleOk(double, double&);
 
 int main()
 {
     double promien;
     cout << "Podaj promien" << endl; cin >> promien;
-    double pole = poleOk(promien, pole);
+    double pole;
+    poleOk(promien, pole);
     double obwod;
     obwodOk(promien, obwod);
 
@@ -20,13 +21,11 @@ int main()
     return 0;
 }
 
-double obwodOk(double promien, double& obwod) {
-    obwod = 2 * 3.14 * promien;
-
-    return obwod;
+void obwodOk(double promien, double &obwod){
+    2 * 3.14 * promien;
 }
-double poleOk(double promien, double& pole) {
-    pole = 3.14 * promien * promien;
-
-    return pole;
+void poleOk(double promien, double& pole){
+    3.14 * promien * promien;
 }
+
+
