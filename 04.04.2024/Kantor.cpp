@@ -3,162 +3,167 @@
 
 using namespace std;
 
-double U(char waluta, char walutadootrzymania, double kwota)
+double U(string waluta, string walutadootrzymania, double kwota)
 {
-	if (walutadootrzymania == 'U')
+	if (walutadootrzymania == "USD")
 	{
 		return kwota * 1;
 	}
-	else if (walutadootrzymania == 'G')
+	else if (walutadootrzymania == "GBP")
 	{
 		return kwota * 0.77;
 	}
-	else if (walutadootrzymania == 'P')
+	else if (walutadootrzymania == "PLN")
 	{
 		return kwota * 3.95;
 	}
-	else if (walutadootrzymania == 'E')
+	else if (walutadootrzymania == "EUR")
 	{
 		return kwota * 0.92;
 	}
-	else if (walutadootrzymania == 'T')
+	else if (walutadootrzymania == "TRY")
 	{
 		return kwota * 31.89;
 	}
 }
 
-double G(char waluta, char walutadootrzymania, double kwota)
+double G(string waluta, string walutadootrzymania, double kwota)
 {
-	if (walutadootrzymania == 'U')
+	if (walutadootrzymania == "USD")
 	{
 		return kwota * 1.26;
 	}
-	else if (walutadootrzymania == 'G')
+	else if (walutadootrzymania == "GBP")
 	{
 		return kwota * 1;
 	}
-	else if (walutadootrzymania == 'P')
+	else if (walutadootrzymania == "PLN")
 	{
 		return kwota * 4.99;
 	}
-	else if (walutadootrzymania == 'E')
+	else if (walutadootrzymania == "EUR")
 	{
 		return kwota * 1.16;
 	}
-	else if (walutadootrzymania == 'T')
+	else if (walutadootrzymania == "TRY")
 	{
 		return kwota * 40.20;
 	}
 }
 
-double P(char waluta, char walutadootrzymania, double kwota)
+double P(string waluta, string walutadootrzymania, double kwota)
 {
-	if (walutadootrzymania == 'U')
+	if (walutadootrzymania == "USD")
 	{
 		return kwota * 0.25;
 	}
-	else if (walutadootrzymania == 'G')
+	else if (walutadootrzymania == "GBP")
 	{
 		return kwota * 0.19;
 	}
-	else if (walutadootrzymania == 'P')
+	else if (walutadootrzymania == "PLN")
 	{
 		return kwota * 1;
 	}
-	else if (walutadootrzymania == 'E')
+	else if (walutadootrzymania == "EUR")
 	{
 		return kwota * 0.23;
 	}
-	else if (walutadootrzymania == 'T')
+	else if (walutadootrzymania == "TRY")
 	{
 		return kwota * 8.02;
 	}
 }
 
-double E(char waluta, char walutadootrzymania, double kwota)
+double E(string waluta, string walutadootrzymania, double kwota)
 {
-	if (walutadootrzymania == 'U')
+	if (walutadootrzymania == "USD")
 	{
 		return kwota * 1.08;
 	}
-	else if (walutadootrzymania == 'G')
+	else if (walutadootrzymania == "GBP")
 	{
 		return kwota * 0.85;
 	}
-	else if (walutadootrzymania == 'P')
+	else if (walutadootrzymania == "PLN")
 	{
 		return kwota * 4.28;
 	}
-	else if (walutadootrzymania == 'E')
+	else if (walutadootrzymania == "EUR")
 	{
 		return kwota * 1;
 	}
-	else if (walutadootrzymania == 'T')
+	else if (walutadootrzymania == "TRY")
 	{
 		return kwota * 34.46;
 	}
 }
 
-double T(char waluta, char walutadootrzymania, double kwota)
+double T(string waluta, string walutadootrzymania, double kwota)
 {
-	if (walutadootrzymania == 'U')
+	if (walutadootrzymania == "USD")
 	{
 		return kwota * 0.03;
 	}
-	else if (walutadootrzymania == 'G')
+	else if (walutadootrzymania == "GBP")
 	{
 		return kwota * 0.02;
 	}
-	else if (walutadootrzymania == 'P')
+	else if (walutadootrzymania == "PLN")
 	{
 		return kwota * 0.12;
 	}
-	else if (walutadootrzymania == 'E')
+	else if (walutadootrzymania == "EUR")
 	{
 		return kwota * 0.02;
 	}
-	else if (walutadootrzymania == 'T')
+	else if (walutadootrzymania == "TRY")
 	{
-		return kwota * 1 ;
+		return kwota * 1;
 	}
 }
 
-double kantor(char waluta, char walutadootrzymania, double kwota)
+double kantor(string waluta, string walutadootrzymania, double kwota)
 {
-	switch (waluta)
+	if (waluta == "USD")
 	{
-	case 'U':
 		return U(waluta, walutadootrzymania, kwota);
-
-	case 'G':
+	}
+	else if (waluta == "GBP")
+	{
 		return G(waluta, walutadootrzymania, kwota);
-
-	case 'P':
+	}
+	else if (waluta == "PLN")
+	{
 		return P(waluta, walutadootrzymania, kwota);
-
-	case 'E':
+	}
+	else if (waluta == "EUR")
+	{
 		return E(waluta, walutadootrzymania, kwota);
-
-	case 'T':
+	}
+	else if (waluta == "TRY")
+	{
 		return T(waluta, walutadootrzymania, kwota);
-
 	}
 
 }
 
 int main()
 {
-	char waluta, walutadootrzymania;
+	string waluta, walutadootrzymania;
 	double kwota;
 
 	cout << "Podaj jaka walute chcesz zamienic: " << endl; cin >> waluta;
 	cout << "Podaj jaka kwote posiadasz: " << endl; cin >> kwota;
 	if (kwota < 0)
 	{
-		cout << "Podana kwota nie moze byæ zamieniona" << endl;
+		cout << "Podana kwota nie moze byc zamieniona" << endl;
+		return 0;
 	}
-	cout << "Podaj jaka walute chcesz otrzymac: " << endl; cin >> walutadootrzymania;
-	cout << "Oto otrzymana kwota po przewalutowaniu: " << kantor(waluta, walutadootrzymania, kwota ) << walutadootrzymania << endl;
+		cout << "Podaj jaka walute chcesz otrzymac: " << endl; cin >> walutadootrzymania;
+
+	if (kwota > 0)
+	{
+		cout << "Oto otrzymana kwota po przewalutowaniu: " << kantor(waluta, walutadootrzymania, kwota) << " " << walutadootrzymania << endl;
+	}
 }
-
-
