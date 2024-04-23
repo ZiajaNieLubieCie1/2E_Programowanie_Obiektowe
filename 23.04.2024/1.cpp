@@ -5,9 +5,9 @@ using namespace std;
 
 int main()
 {
-	string const nazwaPliku("C:/Users/Uczen/source/repos/ConsoleApplication4/ConsoleApplication4/plik3.txt");
+	string const nazwaPliku("plik3.txt");
 	//ofstream mojStrumien(nazwaPliku.c_str());
-	ofstream mojStrumien("C:/Users/Uczen/source/repos/ConsoleApplication4/ConsoleApplication4/plik3.txt", ios::app);
+	ofstream mojStrumien("plik3.txt", ios::app);
 
 	if (mojStrumien)
 	{
@@ -18,7 +18,7 @@ int main()
 	}
 	else
 	{
-		cout << "B£¥D: nie mo¿na otworzyæ pliku." << endl;
+		cout << "BÂ£Â¥D: nie moÂ¿na otworzyÃ¦ pliku." << endl;
 	}
 
 	return 0;
