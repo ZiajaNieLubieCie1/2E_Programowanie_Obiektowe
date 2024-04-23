@@ -111,7 +111,7 @@ int main()
 				}
 			} while (slowoUzytkownika != sekretneSlowo);
 			cout << "Czy chcesz zakonczyc gre? \n TAK/NIE" << endl; cin >> kolejnaPartia;
-			if (kolejnaPartia == "NIE")
+			if (kolejnaPartia == "TAK")
 			{
 				break;
 			}
